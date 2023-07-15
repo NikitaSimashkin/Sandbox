@@ -1,35 +1,114 @@
 package ru.kram.sandbox
 
+import android.Manifest
+import android.app.Activity
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceView
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource
-import com.google.android.exoplayer2.source.ConcatenatingMediaSource2
-import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import androidx.core.view.doOnPreDraw
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ConcatenatingMediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import com.yandex.mobile.ads.banner.AdSize
+import com.yandex.mobile.ads.banner.BannerAdEventListener
+import com.yandex.mobile.ads.common.AdRequest
+import com.yandex.mobile.ads.common.AdRequestError
+import com.yandex.mobile.ads.common.ImpressionData
+import ru.kram.sandbox.carousel.CarouselFragment
+import ru.kram.sandbox.databinding.ActivityAddBinding
+import ru.kram.sandbox.recyclerfocus.RecyclerFragment
 
 class MainActivity : AppCompatActivity() {
 
-	val player by lazy { ExoPlayer.Builder(this).build() }
+	private val player by lazy { ExoPlayer.Builder(this).build() }
+
+	private val playerFlag = false
+	private val addFlag = false
+	private val appCompatTextViewFlag = false
+	private val recyclerfocusFlag = false
+	private val carousel = true
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+
+		if (savedInstanceState == null) {
+			if (playerFlag) {
+				setContentView(R.layout.activity_main)
+				testExo()
+			} else if (addFlag) {
+				setContentView(R.layout.activity_add)
+				showAdd()
+			} else if (appCompatTextViewFlag) {
+				setContentView(R.layout.activity_appcompat_textview)
+				testAppCompat()
+			} else if (recyclerfocusFlag) {
+				requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+				supportFragmentManager.beginTransaction().apply {
+					add(android.R.id.content, RecyclerFragment())
+					commit()
+				}
+			} else if (carousel) {
+				supportFragmentManager.beginTransaction().apply {
+					add(android.R.id.content, CarouselFragment())
+					commit()
+				}
+			}
+		}
 	}
 
 	override fun onStart() {
 		super.onStart()
 		supportActionBar?.hide()
-		registerForActivityResult(ActivityResultContracts.RequestPermission()) {}.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+	}
+
+	private fun showAdd() {
+		val binding = ActivityAddBinding.bind(findViewById(R.id.add_root))
+		binding.bannerLayout.doOnPreDraw {
+			binding.banner.setAdSize(AdSize.inlineSize(pxToDp(it.width), pxToDp(it.height)))
+			binding.banner.setAdUnitId("demo-banner-yandex")
+			binding.banner.setBannerAdEventListener(object : BannerAdEventListener{
+				override fun onAdLoaded() {
+					Log.d("Nikita", "onAdLoaded")
+				}
+
+				override fun onAdFailedToLoad(p0: AdRequestError) {
+					Log.d("Nikita", p0.toString())
+				}
+
+				override fun onAdClicked() {
+					Log.d("Nikita", "onAdClicked")
+				}
+
+				override fun onLeftApplication() {
+					Log.d("Nikita", "onLeftApplication")
+				}
+
+				override fun onReturnedToApplication() {
+					Log.d("Nikita", "onReturnedToApplication")
+				}
+
+				override fun onImpression(p0: ImpressionData?) {
+					Log.d("Nikita", p0.toString())
+				}
+
+			})
+
+			binding.banner.loadAd(AdRequest.Builder().build())
+		}
+	}
+
+	@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
+	private fun testExo() {
+		registerForActivityResult(ActivityResultContracts.RequestPermission()) {}.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 		val surfaceView = findViewById<SurfaceView>(R.id.surface_view)
-		val factory = DefaultDataSourceFactory(this)
+		val factory = DefaultDataSource.Factory(this)
 		val video1 = ProgressiveMediaSource.Factory(factory).createMediaSource(
 			MediaItem.fromUri("asset:///video1.mp4")
 		)
@@ -44,8 +123,34 @@ class MainActivity : AppCompatActivity() {
 		player.prepare()
 	}
 
+	private fun testAppCompat() {
+		var str = "123"
+		val text = findViewById<TextView>(R.id.appcompat_textview)
+		text.postDelayed({
+			text.text = str
+			str += str
+		}, 3000)
+		text.postDelayed({
+			text.text = str
+			str += str
+		}, 6000)
+		text.postDelayed({
+			text.text = str
+			str += str
+		}, 9000)
+	}
+
+	private fun testCarousel() {
+
+	}
+
 	override fun onStop() {
 		super.onStop()
 		player.release()
+	}
+
+	private fun pxToDp(px: Int): Int {
+		val density = resources.displayMetrics.density
+		return (px / density).toInt()
 	}
 }
