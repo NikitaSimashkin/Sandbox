@@ -7,7 +7,9 @@ import ru.kram.sandbox.R
 
 class CarouselHolder(view: View): RecyclerView.ViewHolder(view) {
 
+	val textView = itemView.findViewById<TextView>(R.id.carousel_text)
+
 	fun bind(text: String) {
-		itemView.findViewById<TextView>(R.id.carousel_text).text = text
+		textView.text = text
 	}
 }

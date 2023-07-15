@@ -4,13 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import ru.kram.sandbox.databinding.CarouselItemBinding
+import ru.kram.sandbox.databinding.ItemCarouselBinding
 
 class CarouselAdapter: ListAdapter<String, CarouselHolder>(CarouselDiffCallback()) {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarouselHolder {
 		Log.d(TAG, "onCreateViewHolder")
-		val view = CarouselItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+		val view = ItemCarouselBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 		return CarouselHolder(view.root)
 	}
 

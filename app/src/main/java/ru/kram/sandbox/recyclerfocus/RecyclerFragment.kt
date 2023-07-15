@@ -1,5 +1,6 @@
 package ru.kram.sandbox.recyclerfocus
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,34 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
+import ru.kram.sandbox.R
 import ru.kram.sandbox.databinding.FragmentRecyclerFocusBinding
 
-class RecyclerFragment: Fragment() {
+class RecyclerFragment: Fragment(R.layout.fragment_recycler_focus) {
 
 	private val personRepository = PersonRepository()
 	private val personAdapter = PersonAdapter()
 
-	private var _binding: FragmentRecyclerFocusBinding? = null
-	private val binding get() = _binding!!
+	private val binding by viewBinding(FragmentRecyclerFocusBinding::bind)
 
 	private val number: Int get() = binding.text.text.toString().toInt()
 
-	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View {
-		_binding = FragmentRecyclerFocusBinding.inflate(inflater, container, false)
-		return binding.root
+	override fun onStart() {
+		super.onStart()
+		requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+	}
+
+	override fun onStop() {
+		super.onStop()
+		requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		setUpRecycler()
-	}
-
-	override fun onDestroy() {
-		super.onDestroy()
-		_binding = null
 	}
 
 	private fun setUpRecycler() = with(binding) {
