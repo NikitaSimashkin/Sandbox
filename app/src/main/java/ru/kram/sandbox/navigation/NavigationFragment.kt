@@ -7,6 +7,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import ru.kram.sandbox.R
 import ru.kram.sandbox.add.AddFragment
 import ru.kram.sandbox.carousel.CarouselFragment
+import ru.kram.sandbox.carousel2.CarouselFragment2
 import ru.kram.sandbox.databinding.FragmentNavigationBinding
 import ru.kram.sandbox.player.PlayerFragment
 import ru.kram.sandbox.recyclerfocus.RecyclerFragment
@@ -31,6 +32,9 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		}
 		carouselButton.setOnClickListener {
 			openFragment(CarouselFragment())
+		}
+		carousel2Button.setOnClickListener {
+			openFragment(CarouselFragment2())
 		}
 	}
 

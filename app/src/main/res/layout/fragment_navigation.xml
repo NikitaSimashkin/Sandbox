@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/exo_player_button"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:minWidth="200dp"
         android:gravity="center"
         android:textSize="14sp"
@@ -20,7 +20,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:minWidth="200dp"
         android:gravity="center"
         android:textSize="14sp"
@@ -30,7 +30,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/recycler_focus_button"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:minWidth="200dp"
         android:gravity="center"
         android:textSize="14sp"
@@ -40,7 +40,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/test_textview_button"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:minWidth="200dp"
         android:gravity="center"
         android:textSize="14sp"
@@ -50,11 +50,31 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/carousel_button"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         android:minWidth="200dp"
         android:gravity="center"
         android:textSize="14sp"
         android:text="carousel"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/carousel2_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="200dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="carousel 2"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/pager_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="200dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="pager"
         tools:ignore="MissingConstraints"/>
 
     <androidx.constraintlayout.helper.widget.Flow
@@ -67,7 +87,9 @@
             add_button,
             recycler_focus_button,
             test_textview_button,
-            carousel_button
+            carousel_button,
+            carousel2_button,
+            pager_button
         "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

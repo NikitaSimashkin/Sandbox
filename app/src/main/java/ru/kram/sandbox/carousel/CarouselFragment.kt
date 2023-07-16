@@ -67,5 +67,4 @@ class CarouselFragment: Fragment(R.layout.fragment_carousel) {
 	companion object {
 		private const val TAG = "CarouselFragment"
 	}
-
 }
