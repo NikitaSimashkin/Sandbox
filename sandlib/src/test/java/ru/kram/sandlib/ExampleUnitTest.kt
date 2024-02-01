@@ -1,4 +1,4 @@
-package ru.kram.sandbox
+package ru.kram.sandlib
 
 import org.junit.Test
 

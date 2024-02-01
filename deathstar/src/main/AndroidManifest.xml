@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.kram.deathstar">
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:label="deathstar"
+        android:icon="@mipmap/ic_launcher">
+
+        <service
+            android:name="ru.kram.deathstar.aidlservice.service.DeathStarService"
+            android:exported="true"
+            android:process=":deathstar"
+            android:enabled="true"
+            android:permission="ru.kram.deathstar.permission.DEATH_STAR_SERVICE_START"/>
+    </application>
+</manifest>

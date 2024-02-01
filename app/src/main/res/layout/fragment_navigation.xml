@@ -77,6 +77,26 @@
         android:text="pager"
         tools:ignore="MissingConstraints"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/rx_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="200dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="rx"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/service_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="200dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="service"
+        tools:ignore="MissingConstraints"/>
+
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,7 +109,9 @@
             test_textview_button,
             carousel_button,
             carousel2_button,
-            pager_button
+            pager_button,
+            rx_button,
+            service_button
         "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

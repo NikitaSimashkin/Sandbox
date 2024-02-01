@@ -16,4 +16,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Sandbox"
+
+apply(from = "common/settings-common.gradle.kts")
+
 include(":app")
+include(":boxsand")
+include(":sandlib")
+include(":deathstar")
+include(":common")

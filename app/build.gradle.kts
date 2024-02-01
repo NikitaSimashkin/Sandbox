@@ -5,7 +5,7 @@ plugins {
 
 @Suppress("UnstableApiUsage")
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
 		namespace = "ru.kram.sandbox"
@@ -47,12 +47,20 @@ android {
 }
 
 dependencies {
+	implementation(project(":common:service-contract"))
+	implementation(project(":common:deathstar-contract"))
+	implementation(project(":common:util"))
+
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-	implementation("androidx.fragment:fragment-ktx:1.5.7")
+	testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+	implementation("io.reactivex.rxjava3:rxjava:3.1.6")
+
+	implementation ("androidx.activity:activity-ktx:1.6.2")
+	implementation ("androidx.fragment:fragment-ktx:1.6.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -61,4 +69,6 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.0.1")
     implementation("com.yandex.android:mobileads:5.9.0")
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
+
+	implementation("androidx.work:work-runtime-ktx:2.9.0")
 }

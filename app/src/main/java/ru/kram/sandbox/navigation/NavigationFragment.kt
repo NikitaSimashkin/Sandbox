@@ -11,6 +11,8 @@ import ru.kram.sandbox.carousel2.CarouselFragment2
 import ru.kram.sandbox.databinding.FragmentNavigationBinding
 import ru.kram.sandbox.player.PlayerFragment
 import ru.kram.sandbox.recyclerfocus.RecyclerFragment
+import ru.kram.sandbox.rx.RxFragment
+import ru.kram.sandbox.service.ServiceFragment
 import ru.kram.sandbox.textviewtest.TextViewTestFragment
 
 class NavigationFragment: Fragment(R.layout.fragment_navigation) {
@@ -35,6 +37,12 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		}
 		carousel2Button.setOnClickListener {
 			openFragment(CarouselFragment2())
+		}
+		rxButton.setOnClickListener {
+			openFragment(RxFragment())
+		}
+		serviceButton.setOnClickListener {
+			openFragment(ServiceFragment())
 		}
 	}
 

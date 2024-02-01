@@ -1,11 +1,8 @@
 package ru.kram.sandbox
 
-import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ru.kram.sandbox.carousel.CarouselFragment
+import androidx.appcompat.app.AppCompatActivity
 import ru.kram.sandbox.navigation.NavigationFragment
-import ru.kram.sandbox.recyclerfocus.RecyclerFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,5 +16,6 @@ class MainActivity : AppCompatActivity() {
 				commit()
 			}
 		}
+		val a = MainActivity::class.java
 	}
 }

@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import ru.kram.sandbox.R
 import ru.kram.sandbox.databinding.FragmentRecyclerFocusBinding
+import kotlin.concurrent.thread
 
 class RecyclerFragment: Fragment(R.layout.fragment_recycler_focus) {
 
@@ -46,6 +48,10 @@ class RecyclerFragment: Fragment(R.layout.fragment_recycler_focus) {
 
 		scroll.setOnClickListener {
 			recyclerView.scrollToPosition(number)
+//			personAdapter.notifyDataSetChanged()
+//			view?.post {
+//				personAdapter.notifyDataSetChanged()
+//			}
 		}
 
 		smoothScroll.setOnClickListener {
