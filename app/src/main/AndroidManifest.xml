@@ -9,9 +9,12 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <queries>
         <package android:name="ru.kram.sandlib" />
         <package android:name="ru.kram.deathstar" />
+        <provider android:authorities="ru.kram.provider.UserContentProvider" />
     </queries>
 
     <application
@@ -29,7 +32,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

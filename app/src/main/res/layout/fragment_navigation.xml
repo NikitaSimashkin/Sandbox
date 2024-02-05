@@ -97,6 +97,16 @@
         android:text="service"
         tools:ignore="MissingConstraints"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/provider_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="200dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="provider"
+        tools:ignore="MissingConstraints"/>
+
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,8 +121,8 @@
             carousel2_button,
             pager_button,
             rx_button,
-            service_button
-        "
+            service_button,
+            provider_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

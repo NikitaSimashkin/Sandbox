@@ -16,6 +16,5 @@ class MainActivity : AppCompatActivity() {
 				commit()
 			}
 		}
-		val a = MainActivity::class.java
 	}
 }

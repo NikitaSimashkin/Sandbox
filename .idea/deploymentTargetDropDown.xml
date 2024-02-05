@@ -2,7 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="common.koin">
+        <State />
+      </entry>
       <entry key="deathstar">
+        <State />
+      </entry>
+      <entry key="provider">
         <State />
       </entry>
     </value>

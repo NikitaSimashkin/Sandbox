@@ -8,6 +8,7 @@ import ru.kram.sandbox.R
 import ru.kram.sandbox.add.AddFragment
 import ru.kram.sandbox.carousel.CarouselFragment
 import ru.kram.sandbox.carousel2.CarouselFragment2
+import ru.kram.sandbox.contentprovider.ProviderFragment
 import ru.kram.sandbox.databinding.FragmentNavigationBinding
 import ru.kram.sandbox.player.PlayerFragment
 import ru.kram.sandbox.recyclerfocus.RecyclerFragment
@@ -43,6 +44,9 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		}
 		serviceButton.setOnClickListener {
 			openFragment(ServiceFragment())
+		}
+		providerButton.setOnClickListener {
+			openFragment(ProviderFragment())
 		}
 	}
 

@@ -11,7 +11,6 @@ class SandboxApp: Application() {
 	private val notificationChannelStorage = NotificationChannelStorage()
 
 	override fun onCreate() {
-
 		Log.d(TAG, "onCreate")
 		super.onCreate()
 		createNotificationChannels()

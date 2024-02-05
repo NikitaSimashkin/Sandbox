@@ -49,6 +49,7 @@ android {
 dependencies {
 	implementation(project(":common:service-contract"))
 	implementation(project(":common:deathstar-contract"))
+	implementation(project(":common:provider-contract"))
 	implementation(project(":common:util"))
 
     implementation("androidx.core:core-ktx:1.7.0")
@@ -61,6 +62,7 @@ dependencies {
 
 	implementation ("androidx.activity:activity-ktx:1.6.2")
 	implementation ("androidx.fragment:fragment-ktx:1.6.2")
+	implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
