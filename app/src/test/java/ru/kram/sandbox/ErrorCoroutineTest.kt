@@ -3,20 +3,15 @@ package ru.kram.sandbox
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kotlinx.coroutines.withContext
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class ErrorCoroutineTest {
 
@@ -25,12 +20,12 @@ class ErrorCoroutineTest {
 		println("CoroutineExceptionHandler")
 	}
 
-	@Before
+	@BeforeEach
 	fun setUp() {
 		Dispatchers.setMain(StandardTestDispatcher())
 	}
 
-	@After
+	@AfterEach
 	fun tearDown() {
 		Dispatchers.resetMain()
 	}

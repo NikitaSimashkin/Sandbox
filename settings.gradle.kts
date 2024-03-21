@@ -6,11 +6,36 @@ pluginManagement {
     }
 }
 
+plugins {
+	id("com.gradle.enterprise") version ("3.16.2")
+}
+
+gradleEnterprise {
+	buildScan {
+		termsOfServiceUrl = "https://gradle.com/terms-of-service"
+		termsOfServiceAgree = "yes"
+	}
+}
+
+buildCache {
+	local {
+		directory = file(".gradle/build-cache")
+		isEnabled = true
+		isPush = true
+	}
+}
+
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+		google {
+			content {
+				includeGroupByRegex("com\\.android.*")
+				includeGroupByRegex("com\\.google.*")
+				includeGroupByRegex("androidx.*")
+			}
+		}
         mavenCentral()
     }
 }
@@ -27,3 +52,4 @@ include(":common")
 include(":provider")
 include(":common:provider-contract")
 include(":common:koin")
+include(":common:broadcast-random-name")

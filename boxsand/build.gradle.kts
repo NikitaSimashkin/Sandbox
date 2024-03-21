@@ -28,6 +28,10 @@ android {
 		}
 	}
 
+	lint {
+		checkReleaseBuilds = false
+	}
+
 	buildFeatures {
 		viewBinding = true
 	}
@@ -44,6 +48,7 @@ android {
 dependencies {
 	implementation(project(":common:service-contract"))
 	implementation(project(":common:util"))
+	implementation(project(":common:broadcast-random-name"))
 
 	implementation("androidx.core:core-ktx:1.7.0")
 	implementation("androidx.appcompat:appcompat:1.6.1")
@@ -61,6 +66,7 @@ dependencies {
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 	implementation("androidx.media3:media3-exoplayer:1.0.1")
+	//noinspection MobileAdsSdkOutdatedVersion
 	implementation("com.yandex.android:mobileads:5.9.0")
 	implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
 }

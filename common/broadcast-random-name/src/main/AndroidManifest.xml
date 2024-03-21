@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <permission android:name="ru.kram.broadcast.random_name.permission.send"/>
+    <permission android:name="ru.kram.broadcast.random_name.permission.receive"/>
+
+    <uses-permission android:name="ru.kram.broadcast.random_name.permission.send"/>
+    <uses-permission android:name="ru.kram.broadcast.random_name.permission.receive"/>
+</manifest>

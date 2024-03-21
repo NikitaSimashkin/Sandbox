@@ -1,0 +1,85 @@
+[versions]
+# Base
+androidGradlePlugin = "8.2.2"
+kotlinGradlePlugin = "1.9.0"
+androidCore = "1.12.0"
+appCompat = "1.6.1"
+material = "1.11.0"
+constraintLayout = "2.1.4"
+viewModel = "2.7.0"
+
+# DI
+dagger = "2.46.1"
+
+# Compose
+coil = "2.6.0"
+composeCompiler = "1.5.3"
+compose = "1.6.2"
+materialCompose = "1.2.0"
+activityCompose = "1.8.2"
+navigationCompose = "2.7.7"
+
+# Coroutine
+coroutinesCore = "1.7.3"
+coroutinesAndroid = "1.7.3"
+
+# Network
+ktor = "2.3.6"
+
+# HTML Parser
+jsoup = "1.15.1"
+
+# Test
+junit = "4.13.2"
+androidJunit = "1.1.5"
+espresso = "3.5.1"
+kotlin = "1.9.22"
+
+[libraries]
+# base
+androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
+androidxCore = { module = "androidx.core:core-ktx", version.ref = "androidCore" }
+androidxAppCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+googleMaterial = { module = "com.google.android.material:material", version.ref = "material" }
+androidxConstraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "viewModel" }
+lifecycleViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "viewModel" }
+
+# di
+daggerDagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+
+# compose
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+materialCompose = { module = "androidx.compose.material3:material3", version.ref = "materialCompose" }
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+composeRuntimeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
+viewModelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewModel" }
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+
+# coroutine
+kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesCore" }
+kotlinxCoroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesAndroid" }
+
+# network
+ktorClient = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+
+# html parser
+jsoupJsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+
+# test
+junit = { module = "junit:junit", version.ref = "junit" }
+androidxTestJunit = { module = "androidx.test.ext:junit", version.ref = "androidJunit" }
+androidxTestEspresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+#compose test
+composeUiTestJUnit4Android = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

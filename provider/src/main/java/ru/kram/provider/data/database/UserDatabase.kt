@@ -2,10 +2,10 @@ package ru.kram.provider.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.kram.provider.data.database.entities.UserDb
+import ru.kram.provider.data.database.entities.UserEntity
 
 @Database(
-	entities = [UserDb::class],
+	entities = [UserEntity::class],
 	version = 2
 )
 abstract class UserDatabase: RoomDatabase() {

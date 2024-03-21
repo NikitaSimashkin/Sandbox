@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/start_work"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="100dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="start work"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel_work"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:minWidth="100dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="cancel work"
+        tools:ignore="MissingConstraints"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:flow_verticalGap="40dp"
+        app:constraint_referenced_ids="start_work, cancel_work, state"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

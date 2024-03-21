@@ -2,7 +2,7 @@ package ru.kram.sandlib.kotlin
 
 import kotlin.reflect.KClass
 
-fun main() {
+fun mainn() {
 	val a: String.Companion = String
 
 	val b: KClass<String> = String::class

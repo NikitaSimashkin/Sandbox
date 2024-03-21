@@ -1,22 +1,23 @@
 package ru.kram.sandbox
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Test
 import java.lang.Exception
-import java.util.Stack
-import kotlin.math.abs
 
-class FlowTest {
+
+class FlowCollectTest {
 
 	private val coroutineScope = CoroutineScope(Dispatchers.IO + CoroutineName("FlowTest"))
 	@Test
@@ -39,12 +40,17 @@ class FlowTest {
 
 		val flowJob = coroutineScope.launch {
 			intFlow.collect {
-				println("FlowTest $it")
+				println("$it")
 			}
-			println("FlowTest log after collect")
+			println("log after collect")
 		}
 
 		flowJob.join()
+	}
+
+	@Test
+	fun a() {
+
 	}
 
 	@Test
@@ -62,7 +68,36 @@ class FlowTest {
 		}.join()
 	}
 
-	@After
+	private fun asLiveData() = runBlocking {
+		val intFlow = flow<Int> {
+			emit(5)
+			delay(1000)
+			emit(10)
+			delay(1000)
+			emit(20)
+			delay(1000)
+			emit(30)
+			delay(1000)
+			emit(40)
+			delay(1000)
+			emit(50)
+			delay(1000)
+			emit(60)
+		}
+		intFlow.asLiveData()
+	}
+
+	private fun <T> Flow<T>.asMyLiveData(): LiveData<T> {
+		val liveData = MutableLiveData<T>()
+		val job = coroutineScope.launch {
+			collect {
+				liveData.postValue(it)
+			}
+		}
+		return liveData
+	}
+
+	@AfterEach
 	fun tearDown() {
 		coroutineScope.cancel()
 	}

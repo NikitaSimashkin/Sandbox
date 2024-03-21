@@ -6,15 +6,22 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import ru.kram.sandbox.R
 import ru.kram.sandbox.add.AddFragment
+import ru.kram.sandbox.biglist.presentation.BigListFragment
+import ru.kram.sandbox.broadcast.ReceiverFragment
 import ru.kram.sandbox.carousel.CarouselFragment
 import ru.kram.sandbox.carousel2.CarouselFragment2
 import ru.kram.sandbox.contentprovider.ProviderFragment
 import ru.kram.sandbox.databinding.FragmentNavigationBinding
+import ru.kram.sandbox.drawservice.DrawServiceFragment
+import ru.kram.sandbox.edittext.EditTextFragment
+import ru.kram.sandbox.jobscheduler.JobServiceFragment
+import ru.kram.sandbox.pendingintent.PendingIntentFragment
 import ru.kram.sandbox.player.PlayerFragment
 import ru.kram.sandbox.recyclerfocus.RecyclerFragment
 import ru.kram.sandbox.rx.RxFragment
 import ru.kram.sandbox.service.ServiceFragment
 import ru.kram.sandbox.textviewtest.TextViewTestFragment
+import ru.kram.sandbox.wokmanager.WorkManagerFragment
 
 class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 
@@ -47,6 +54,27 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		}
 		providerButton.setOnClickListener {
 			openFragment(ProviderFragment())
+		}
+		receiverButton.setOnClickListener {
+			openFragment(ReceiverFragment())
+		}
+		drawService.setOnClickListener {
+			openFragment(DrawServiceFragment())
+		}
+		pendingIntent.setOnClickListener {
+			openFragment(PendingIntentFragment())
+		}
+		jobServiceButton.setOnClickListener {
+			openFragment(JobServiceFragment())
+		}
+		workManagerButton.setOnClickListener {
+			openFragment(WorkManagerFragment())
+		}
+		bigListButton.setOnClickListener {
+			openFragment(BigListFragment())
+		}
+		editTextView.setOnClickListener {
+			openFragment(EditTextFragment())
 		}
 	}
 

@@ -5,13 +5,10 @@ plugins {
 
 @Suppress("UnstableApiUsage")
 android {
-    compileSdk = 34
 
     defaultConfig {
 		namespace = "ru.kram.sandbox"
         applicationId = "ru.kram.sandbox"
-        minSdk = 24
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -43,13 +40,31 @@ android {
 
     buildFeatures {
         viewBinding = true
+		compose = true
     }
+
+	composeOptions {
+		kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+	}
+
+	testOptions {
+		unitTests {
+			isIncludeAndroidResources = true
+		}
+
+	}
+
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
 }
 
 dependencies {
 	implementation(project(":common:service-contract"))
 	implementation(project(":common:deathstar-contract"))
 	implementation(project(":common:provider-contract"))
+	implementation(project(":common:broadcast-random-name"))
 	implementation(project(":common:util"))
 
     implementation("androidx.core:core-ktx:1.7.0")
@@ -64,8 +79,8 @@ dependencies {
 	implementation ("androidx.fragment:fragment-ktx:1.6.2")
 	implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
+	testImplementation ("org.robolectric:robolectric:4.11.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("androidx.media3:media3-exoplayer:1.0.1")
@@ -73,4 +88,16 @@ dependencies {
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
 
 	implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+	implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+	implementation(libs.activityCompose)
+	implementation(libs.composeUi)
+	implementation(libs.materialCompose)
+	implementation(libs.composeRuntimeLiveData)
+	implementation(libs.viewModelCompose)
+	implementation(libs.navigationCompose)
+	implementation(libs.coil)
+	implementation(libs.composeUiTooling)
+	implementation(libs.composeUiToolingPreview)
 }

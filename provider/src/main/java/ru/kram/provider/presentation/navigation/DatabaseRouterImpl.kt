@@ -34,8 +34,10 @@ class DatabaseRouterImpl(
 
 	private fun openFragment(fragment: Fragment) {
 		providerActivity.supportFragmentManager.beginTransaction().apply {
+			if (providerActivity.supportFragmentManager.fragments.isNotEmpty()) {
+				addToBackStack(null)
+			}
 			replace(R.id.provider_activity_fragment_container, fragment)
-			addToBackStack(null)
 			commit()
 		}
 	}

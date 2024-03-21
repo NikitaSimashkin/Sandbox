@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import ru.kram.provider_contract.UserProviderApi
 
 @Entity(tableName = UserProviderApi.TABLE_NAME)
-data class UserDb(
+data class UserEntity(
 	@PrimaryKey
 	@ColumnInfo(name = UserProviderApi.Projection.ID)
 	val id: Long,

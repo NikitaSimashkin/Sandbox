@@ -4,11 +4,19 @@ import android.app.Application
 import android.app.NotificationManager
 import android.os.Build
 import android.util.Log
+import androidx.work.Configuration
 import ru.kram.sandbox.notification.NotificationChannelStorage
+import java.util.concurrent.Executors
 
-class SandboxApp: Application() {
+class SandboxApp: Application(), Configuration.Provider {
 
 	private val notificationChannelStorage = NotificationChannelStorage()
+
+	override val workManagerConfiguration: Configuration
+		get() = Configuration.Builder()
+			.setExecutor(Executors.newFixedThreadPool(5))
+			.setMinimumLoggingLevel(Log.DEBUG)
+			.build()
 
 	override fun onCreate() {
 		Log.d(TAG, "onCreate")
