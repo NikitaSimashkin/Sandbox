@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 				commit()
 			}
 		}
+		reportFullyDrawn()
 
 		val numFromPendingIntentFragment = intent?.extras?.getInt(PendingIntentFragment.VALUE_KEY, -1)
 		if (numFromPendingIntentFragment != null && numFromPendingIntentFragment != -1) {
