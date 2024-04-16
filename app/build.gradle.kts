@@ -100,5 +100,5 @@ dependencies {
 	implementation(libs.coil)
 	implementation(libs.composeUiTooling)
 	implementation(libs.composeUiToolingPreview)
-	implementation(libs.composeLifecycle)
+    implementation(libs.composeLifecycle)
 }

@@ -200,13 +200,13 @@
         tools:ignore="MissingConstraints"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/animated_visibility"
+        android:id="@+id/compose_animation"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:minWidth="100dp"
         android:gravity="center"
         android:textSize="14sp"
-        android:text="animated visibility compose"
+        android:text="compose animation"
         tools:ignore="MissingConstraints"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -262,7 +262,7 @@
             work_manager_button,
             big_list_button,
             edit_text_view,
-            animated_visibility,
+            compose_animation,
             empty_button8,
             empty_button9,
             empty_button10,

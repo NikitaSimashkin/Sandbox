@@ -10,7 +10,7 @@ import ru.kram.sandbox.biglist.presentation.BigListFragment
 import ru.kram.sandbox.broadcast.ReceiverFragment
 import ru.kram.sandbox.carousel.CarouselFragment
 import ru.kram.sandbox.carousel2.CarouselFragment2
-import ru.kram.sandbox.compose.animatedvisibility.AnimatedVisibilityFragment
+import ru.kram.sandbox.compose.animation.AnimationFragment
 import ru.kram.sandbox.contentprovider.ProviderFragment
 import ru.kram.sandbox.databinding.FragmentNavigationBinding
 import ru.kram.sandbox.drawservice.DrawServiceFragment
@@ -23,7 +23,6 @@ import ru.kram.sandbox.rx.RxFragment
 import ru.kram.sandbox.service.ServiceFragment
 import ru.kram.sandbox.textviewtest.TextViewTestFragment
 import ru.kram.sandbox.wokmanager.WorkManagerFragment
-import java.math.BigInteger
 
 class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 
@@ -42,7 +41,6 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		testTextviewButton.setOnClickListener {
 			openFragment(TextViewTestFragment())
 		}
-		BigInteger("12313")
 		carouselButton.setOnClickListener {
 			openFragment(CarouselFragment())
 		}
@@ -79,8 +77,8 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		editTextView.setOnClickListener {
 			openFragment(EditTextFragment())
 		}
-		animatedVisibility.setOnClickListener {
-			openFragment(AnimatedVisibilityFragment())
+		composeAnimation.setOnClickListener {
+			openFragment(AnimationFragment())
 		}
 	}
 
