@@ -1,5 +1,6 @@
 package ru.kram.sandbox.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,7 +11,8 @@ import ru.kram.sandbox.biglist.presentation.BigListFragment
 import ru.kram.sandbox.broadcast.ReceiverFragment
 import ru.kram.sandbox.carousel.CarouselFragment
 import ru.kram.sandbox.carousel2.CarouselFragment2
-import ru.kram.sandbox.compose.animation.AnimationFragment
+import ru.kram.sandbox.compose.ComposeNavigationFragment
+import ru.kram.sandbox.compose.edgetoedge.EdgeToEdgeActivity
 import ru.kram.sandbox.contentprovider.ProviderFragment
 import ru.kram.sandbox.databinding.FragmentNavigationBinding
 import ru.kram.sandbox.drawservice.DrawServiceFragment
@@ -23,6 +25,8 @@ import ru.kram.sandbox.rx.RxFragment
 import ru.kram.sandbox.service.ServiceFragment
 import ru.kram.sandbox.textviewtest.TextViewTestFragment
 import ru.kram.sandbox.wokmanager.WorkManagerFragment
+import java.util.PriorityQueue
+import java.util.Queue
 
 class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 
@@ -77,8 +81,11 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		editTextView.setOnClickListener {
 			openFragment(EditTextFragment())
 		}
-		composeAnimation.setOnClickListener {
-			openFragment(AnimationFragment())
+ 		compose.setOnClickListener {
+			openFragment(ComposeNavigationFragment())
+		}
+		edgeToEdge.setOnClickListener {
+			startActivity(Intent(requireContext(), EdgeToEdgeActivity::class.java))
 		}
 	}
 

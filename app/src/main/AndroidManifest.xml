@@ -41,6 +41,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".compose.edgetoedge.EdgeToEdgeActivity"
+            android:exported="true" />
+
         <service android:name=".service.CountForegroundService" />
         <service android:name=".service.CountBackgroundService" />
         <service android:name="ru.kram.sandbox.service.RandomSameProcessService" />

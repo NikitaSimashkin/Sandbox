@@ -90,6 +90,7 @@ dependencies {
 	implementation("androidx.work:work-runtime-ktx:2.9.0")
 
 	implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
 
 	implementation(libs.activityCompose)
 	implementation(libs.composeUi)

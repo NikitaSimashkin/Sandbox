@@ -1,6 +1,8 @@
 package ru.kram.sandbox.compose.animation
 
+import android.util.Log
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,9 +36,27 @@ fun AnimatableScreen() {
     }
 
     LaunchedEffect(key1 = true) {
+        Log.d("AnimatableScreen", "start")
+
         animatableValue.animateTo(
             targetValue = endValueOffset.value,
-            animationSpec = tween(delayMillis = 1000, durationMillis = 1000)
-        )
+            animationSpec = tween(
+                delayMillis = 1000,
+                durationMillis = 1000,
+                easing = LinearEasing
+            )
+        ) {
+            Log.d("AnimatableScreen", "value: $value")
+        }
+
+        Log.d("AnimatableScreen", "end")
     }
+
+    // animation spec:
+    // spring,
+    // tween,
+    // keyframes,
+    // repeatable,
+    // infinite repeatable,
+    // snap
 }

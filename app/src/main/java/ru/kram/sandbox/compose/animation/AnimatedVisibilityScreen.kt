@@ -1,6 +1,14 @@
 package ru.kram.sandbox.compose.animation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterExitState
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalAnimationApi::class)
 @Preview
 @Composable
 fun AnimatedVisibilityScreen() {
@@ -50,14 +59,26 @@ fun AnimatedVisibilityScreen() {
         AnimatedVisibility(
             visible = isVisibleRedSquare,
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.CenterHorizontally),
+            enter = EnterTransition.None,
+            exit = ExitTransition.None
         ) {
+            val color = transition.animateColor(
+                transitionSpec = { tween(durationMillis = 2000) },
+                label = ""
+            ) {
+                if (it == EnterExitState.Visible) Color.Red else Color.Green
+            }
             Box(
                 modifier = Modifier
                     .padding(32.dp)
+                    .animateEnterExit(
+                        enter = slideInVertically(animationSpec = tween(durationMillis = 2000)),
+                        exit = slideOutHorizontally(animationSpec = tween(durationMillis = 2000))
+                    )
                     .height(200.dp)
                     .width(200.dp)
-                    .background(Color.Red)
+                    .background(color = color.value)
             )
         }
 
