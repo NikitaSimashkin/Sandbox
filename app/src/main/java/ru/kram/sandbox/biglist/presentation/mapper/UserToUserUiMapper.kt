@@ -1,12 +1,12 @@
 package ru.kram.sandbox.biglist.presentation.mapper
 
 import ru.kram.sandbox.biglist.domain.model.User
-import ru.kram.sandbox.biglist.presentation.model.UserUi
+import ru.kram.sandbox.biglist.presentation.model.UserListItem
 
-class UserToUserUiMapper: (User) -> UserUi {
+class UserToUserUiMapper: (User) -> UserListItem.UserUi {
 
-	override fun invoke(user: User): UserUi {
-		return UserUi(
+	override fun invoke(user: User): UserListItem.UserUi {
+		return UserListItem.UserUi(
 			id = user.id,
 			name = user.name,
 			surname = user.surname,

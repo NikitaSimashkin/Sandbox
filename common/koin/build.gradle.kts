@@ -30,5 +30,7 @@ android {
 dependencies {
 	implementation(project(":common:util"))
 
-	api ("io.insert-koin:koin-android:3.2.0")
+	val kotlinVersion = "3.5.6"
+	api("io.insert-koin:koin-android:$kotlinVersion")
+	api("io.insert-koin:koin-androidx-compose:$kotlinVersion")
 }

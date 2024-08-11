@@ -3,7 +3,16 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+		maven("https://jitpack.io")
     }
+
+	resolutionStrategy {
+		eachPlugin {
+			if (requested.id.toString() == "com.github.takahirom.decomposer") {
+				useModule("com.github.takahirom:decomposer:main-SNAPSHOT")
+			}
+		}
+	}
 }
 
 plugins {
@@ -53,3 +62,4 @@ include(":provider")
 include(":common:provider-contract")
 include(":common:koin")
 include(":common:broadcast-random-name")
+include(":common:architecture")

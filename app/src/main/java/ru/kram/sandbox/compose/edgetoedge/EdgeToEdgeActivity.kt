@@ -9,12 +9,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsIgnoringVisibility
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -22,15 +24,20 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,49 +46,60 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.kram.sandbox.utils.backgroundButtonColor
 
 class EdgeToEdgeActivity: ComponentActivity() {
 
-    private val vm by viewModels<EdgeToEdgeViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Box(modifier = Modifier
-                .fillMaxSize()
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
             ) {
                 Content()
             }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        vm.command
-            .flowWithLifecycle(this.lifecycle)
-            .onEach {
-                when (it) {
-                    EdgeToEdgeViewModel.Command.EnableEdgeToEdge -> {
-                        enableEdgeToEdge()
-                    }
-                    EdgeToEdgeViewModel.Command.DisableEdgeToEdge -> {
-                        recreate()
-                    }
-                }
-            }
-            .launchIn(lifecycle.coroutineScope)
-    }
-
+    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     private fun Content() {
+        val vm: EdgeToEdgeViewModel = viewModel()
+
+        LaunchedEffect(key1 = Unit) {
+            vm.command
+                .onEach {
+                    when (it) {
+                        EdgeToEdgeViewModel.Command.EnableEdgeToEdge -> {
+                            enableEdgeToEdge()
+                        }
+                        EdgeToEdgeViewModel.Command.DisableEdgeToEdge -> {
+                            recreate()
+                        }
+                        EdgeToEdgeViewModel.Command.HideNavBar -> {
+                            WindowInsetsControllerCompat(window, window.decorView)
+                                .hide(WindowInsetsCompat.Type.navigationBars())
+                        }
+                        EdgeToEdgeViewModel.Command.ShowNavBar -> {
+                            WindowInsetsControllerCompat(window, window.decorView)
+                                .show(WindowInsetsCompat.Type.navigationBars())
+                        }
+                    }
+                }
+                .launchIn(this)
+        }
+
         val currentState by vm.state.collectAsStateWithLifecycle()
         Column(
             modifier = Modifier
@@ -128,17 +146,13 @@ class EdgeToEdgeActivity: ComponentActivity() {
                     else
                         Modifier
                 )
-                .padding(horizontal = 16.dp)
+                .then(
+                    if (currentState.isNavBarPaddingIgnoreVisibilityEnabled)
+                        Modifier.windowInsetsPadding(WindowInsets.navigationBarsIgnoringVisibility)
+                    else
+                        Modifier
+                )
         ) {
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-            ) {
-                when (currentState.screen) {
-                    EdgeToEdgeScreen.NavigationScreen -> Navigation(currentState)
-                }
-            }
-
             if (currentState.screen != EdgeToEdgeScreen.NavigationScreen) {
                 Button(
                     onClick = {
@@ -151,26 +165,44 @@ class EdgeToEdgeActivity: ComponentActivity() {
                     Text("Go Back")
                 }
             }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                when (currentState.screen) {
+                    EdgeToEdgeScreen.NavigationScreen -> Navigation(vm, currentState)
+                    EdgeToEdgeScreen.BottomSheetScreen2 -> BottomSheetScreen2()
+                }
+            }
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun Navigation(state: EdgeToEdgeState) {
+    fun Navigation(
+        vm: EdgeToEdgeViewModel,
+        state: EdgeToEdgeState
+    ) {
+        val bottomSheetIsOpened = remember { mutableStateOf(false) }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(16.dp)
                 .verticalScroll(rememberScrollState())
                 .background(Color.LightGray),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             TopButton(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                state = state
+                state = state,
+                vm = vm
             )
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-                modifier = Modifier.height(800.dp),
+                modifier = Modifier.height(1000.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
@@ -312,7 +344,69 @@ class EdgeToEdgeActivity: ComponentActivity() {
                     Button(
                         onClick = { vm.unconsumeStatusBarPadding() }
                     ) {
-                        Text("Unconsume status bar")
+                        Text("Unconsume st. bar")
+                    }
+                }
+
+                item {
+                    Button(
+                        onClick = { vm.hideNavBar() }
+                    ) {
+                        Text("Hide nav bar")
+                    }
+                }
+
+                item {
+                    Button(
+                        onClick = { vm.showNavBar() }
+                    ) {
+                        Text("Show nav bar")
+                    }
+                }
+
+                item {
+                    Button(
+                        onClick = { vm.enableNavBarPaddingIgnoreVisibility() }
+                    ) {
+                        Text("Enable nav bar ignoring visibility")
+                    }
+                }
+
+                item {
+                    Button(
+                        onClick = { vm.disableNavBarPaddingIgnoreVisibility() }
+                    ) {
+                        Text("Disable nav bar ignoring visibility")
+                    }
+                }
+
+                item(
+                    span = {
+                        GridItemSpan(2)
+                    }
+                ) {
+                    Button(
+                        onClick = { vm.clearState() }
+                    ) {
+                        Text("Clear")
+                    }
+                }
+
+                item {
+                    Button(
+                        onClick = {
+                            bottomSheetIsOpened.value = true
+                        }
+                    ) {
+                        Text("Open Bottom Sheet")
+                    }
+                }
+
+                item {
+                    Button(
+                        onClick = { vm.navigateToBottomSheetScreen() }
+                    ) {
+                        Text("Open Bottom Sheet 2")
                     }
                 }
             }
@@ -324,14 +418,24 @@ class EdgeToEdgeActivity: ComponentActivity() {
             ) {
                 BottomButton(
                     modifier = Modifier,
-                    state = state
+                    state = state,
+                    vm = vm
                 )
             }
+
+            val bottomSheetState = rememberModalBottomSheetState(
+                skipPartiallyExpanded = true
+            )
+            BottomSheetScreen(
+                sheetState = bottomSheetState,
+                isOpened = bottomSheetIsOpened
+            )
         }
     }
 
     @Composable
     private fun TopButton(
+        vm: EdgeToEdgeViewModel,
         state: EdgeToEdgeState,
         modifier: Modifier = Modifier
     ) {
@@ -360,6 +464,7 @@ class EdgeToEdgeActivity: ComponentActivity() {
 
     @Composable
     private fun BottomButton(
+        vm: EdgeToEdgeViewModel,
         state: EdgeToEdgeState,
         modifier: Modifier = Modifier
     ) {

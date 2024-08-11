@@ -1,23 +1,24 @@
 package ru.kram.sandbox.compose
 
 import AnimatedVector2DScreen
-import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.kram.sandbox.compose.animation.AnimatableAsStateScreen
 import ru.kram.sandbox.compose.animation.AnimatableScreen
 import ru.kram.sandbox.compose.animation.AnimatedContentScreen
@@ -26,24 +27,29 @@ import ru.kram.sandbox.compose.animation.CrossFadeScreen
 import ru.kram.sandbox.compose.animation.DecayAnimationScreen
 import ru.kram.sandbox.compose.animation.TargetBasedAnimationScreen
 import ru.kram.sandbox.compose.animation.UpdateTransitionScreen
-import ru.kram.sandbox.compose.dispose.DisposeScreen
-import ru.kram.sandbox.compose.edgetoedge.EdgeToEdgeActivity
+import ru.kram.sandbox.compose.effect.DerivedStateScreen
+import ru.kram.sandbox.compose.effect.DisposeScreen
+import ru.kram.sandbox.compose.effect.SideEffectScreen
+import ru.kram.sandbox.compose.effect.SnapshotFlowScreen
+import ru.kram.sandbox.compose.remember.RememberScreen
 import ru.kram.sandbox.utils.ComposeFragment
 
 class ComposeNavigationFragment: ComposeFragment() {
-
-    private val state = MutableStateFlow<ComposeScreenState>(ComposeScreenState.NavigationScreen)
-
     @Composable
     override fun Content() {
-        val currentState by state.collectAsStateWithLifecycle()
-        Column(modifier = Modifier.fillMaxSize()) {
+        val vm: ComposeNavigationViewModel = viewModel()
+        val state = vm.state.collectAsStateWithLifecycle()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding()
+        ) {
             Box(
                 modifier = Modifier
                     .weight(1f)
             ) {
-                when (currentState) {
-                    ComposeScreenState.NavigationScreen -> Navigation()
+                when (state.value) {
+                    ComposeScreenState.NavigationScreen -> Navigation(vm::navigateTo)
                     ComposeScreenState.Animatable -> AnimatableScreen()
                     ComposeScreenState.AnimatedVisibility -> AnimatedVisibilityScreen()
                     ComposeScreenState.AnimateAsState -> AnimatableAsStateScreen()
@@ -54,13 +60,17 @@ class ComposeNavigationFragment: ComposeFragment() {
                     ComposeScreenState.AnimatedContent -> AnimatedContentScreen()
                     ComposeScreenState.CrossFade -> CrossFadeScreen()
                     ComposeScreenState.LaunchDispose -> DisposeScreen()
+                    ComposeScreenState.Remember -> RememberScreen()
+                    ComposeScreenState.SideEffect -> SideEffectScreen()
+                    ComposeScreenState.DerivedState -> DerivedStateScreen()
+                    ComposeScreenState.SnapshotFlow -> SnapshotFlowScreen()
                 }
             }
 
-            if (currentState != ComposeScreenState.NavigationScreen) {
+            if (state.value != ComposeScreenState.NavigationScreen) {
                 Button(
                     onClick = {
-                        state.value = ComposeScreenState.NavigationScreen
+                        vm.navigateTo(ComposeScreenState.NavigationScreen)
                     },
                     modifier = Modifier
                         .padding(16.dp)
@@ -73,7 +83,9 @@ class ComposeNavigationFragment: ComposeFragment() {
     }
 
     @Composable
-    fun Navigation() {
+    fun Navigation(
+        onScreenClick: (ComposeScreenState) -> Unit
+    ) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.fillMaxSize(),
@@ -91,10 +103,14 @@ class ComposeNavigationFragment: ComposeFragment() {
                 ComposeScreenState.AnimatedContent to "Animated Content",
                 ComposeScreenState.CrossFade to "CrossFade",
                 ComposeScreenState.LaunchDispose to "Launch / Dispose",
-            ).forEach { (state, name) ->
+                ComposeScreenState.Remember to "Remember",
+                ComposeScreenState.SideEffect to "Side Effect",
+                ComposeScreenState.DerivedState to "Derived State",
+                ComposeScreenState.SnapshotFlow to "Snapshot Flow"
+            ).forEach { (composeScreenState, name) ->
                 item {
                     Button(
-                        onClick = { this@ComposeNavigationFragment.state.value = state }
+                        onClick = { onScreenClick(composeScreenState) }
                     ) {
                         Text(name)
                     }

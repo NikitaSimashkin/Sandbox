@@ -12,4 +12,8 @@ sealed class ComposeScreenState {
     data object AnimatedContent: ComposeScreenState()
     data object CrossFade: ComposeScreenState()
     data object LaunchDispose: ComposeScreenState()
+    data object Remember: ComposeScreenState()
+    data object SideEffect: ComposeScreenState()
+    data object DerivedState: ComposeScreenState()
+    data object SnapshotFlow: ComposeScreenState()
 }

@@ -1,6 +1,40 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.vk.vkompose") version "0.5.5"
+    id("com.github.takahirom.decomposer")
+    id("com.google.devtools.ksp")
+    kotlin("plugin.serialization") version "2.0.10"
+    kotlin("kapt")
+}
+
+vkompose {
+    skippabilityCheck {
+        stabilityConfigurationPath = "/path/file.config"
+        isEnabled = false
+    }
+
+    recompose {
+        isHighlighterEnabled = true
+        isLoggerEnabled = true
+        // or
+        logger {
+            logModifierChanges = true // true by default since 0.5
+            logFunctionChanges = true // true by default since 0.5. log when function arguments (like lambdas or function references) of composable function are changed
+        }
+    }
+
+    testTag {
+        isApplierEnabled = true
+        isDrawerEnabled = false
+        isCleanerEnabled = false
+    }
+
+    sourceInformationClean = true
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 @Suppress("UnstableApiUsage")
@@ -54,6 +88,9 @@ android {
 
 	}
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 tasks.withType<Test> {
@@ -92,9 +129,19 @@ dependencies {
 	implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
 
+    val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
+    implementation(composeBom)
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+
+    implementation("com.airbnb.android:epoxy:5.1.4")
+    kapt("com.airbnb.android:epoxy-processor:5.1.4")
+
 	implementation(libs.activityCompose)
 	implementation(libs.composeUi)
-	implementation(libs.materialCompose)
+	implementation(libs.material3Compose)
+    implementation(libs.materialCompose)
 	implementation(libs.composeRuntimeLiveData)
 	implementation(libs.viewModelCompose)
 	implementation(libs.navigationCompose)
@@ -102,4 +149,22 @@ dependencies {
 	implementation(libs.composeUiTooling)
 	implementation(libs.composeUiToolingPreview)
     implementation(libs.composeLifecycle)
+    implementation(project(":common:koin"))
+
+    val roomVersion = "2.6.0"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    implementation("io.ktor:ktor-client-core:2.0.0")
+    implementation("io.ktor:ktor-client-cio:2.0.0")
+    implementation("io.ktor:ktor-client-content-negotiation:2.0.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
+    implementation("io.ktor:ktor-client-logging:2.0.0")
+
+    val pagingVersion = "3.3.2"
+    implementation("androidx.paging:paging-runtime:$pagingVersion")
+    implementation("androidx.paging:paging-compose:$pagingVersion")
+
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }

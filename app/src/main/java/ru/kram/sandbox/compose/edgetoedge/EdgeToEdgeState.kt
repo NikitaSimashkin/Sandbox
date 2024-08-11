@@ -2,21 +2,24 @@ package ru.kram.sandbox.compose.edgetoedge
 
 sealed class EdgeToEdgeScreen {
     data object NavigationScreen: EdgeToEdgeScreen()
+    data object BottomSheetScreen2: EdgeToEdgeScreen()
 }
 
 data class EdgeToEdgeState(
     val screen: EdgeToEdgeScreen = EdgeToEdgeScreen.NavigationScreen,
 
-    val isStatusBarPaddingEnabled: Boolean = false,
-    val isNavigationBarPaddingEnabled: Boolean = false,
+    val isStatusBarPaddingEnabled: Boolean,
+    val isNavigationBarPaddingEnabled: Boolean,
 
-    val isStatusBarPaddingOnButtonEnabled: Boolean = false,
-    val isNavigationBarPaddingOnButtonEnabled: Boolean = false,
+    val isStatusBarPaddingOnButtonEnabled: Boolean,
+    val isNavigationBarPaddingOnButtonEnabled: Boolean,
 
-    val isSafeDrawingPaddingEnabled: Boolean = false,
-    val isSystemBarsPaddingEnabled: Boolean = false,
-    val isDisplayCutoutPaddingEnabled: Boolean = false,
-    val isImePaddingEnabled: Boolean = false,
+    val isSafeDrawingPaddingEnabled: Boolean,
+    val isSystemBarsPaddingEnabled: Boolean,
+    val isDisplayCutoutPaddingEnabled: Boolean,
+    val isImePaddingEnabled: Boolean,
 
-    val isConsumedStatusBarPadding: Boolean = false,
+    val isConsumedStatusBarPadding: Boolean,
+
+    val isNavBarPaddingIgnoreVisibilityEnabled: Boolean,
 )

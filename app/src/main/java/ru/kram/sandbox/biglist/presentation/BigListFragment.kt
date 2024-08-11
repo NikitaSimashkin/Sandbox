@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import ru.kram.sandbox.R
 import ru.kram.sandbox.biglist.presentation.stateholder.UserViewModel
 import ru.kram.sandbox.biglist.presentation.stateholder.UserViewModelFactory
+import ru.kram.sandbox.compose.ComposeNavigationFragment
 import ru.kram.sandbox.databinding.FragmentBigListBinding
 
 class BigListFragment: Fragment(R.layout.fragment_big_list) {
@@ -22,7 +23,13 @@ class BigListFragment: Fragment(R.layout.fragment_big_list) {
 	private val viewModel: UserViewModel by viewModels { UserViewModelFactory() }
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		val adapter = UserAdapter()
+		val adapter = UserListAdapter {
+			parentFragmentManager.beginTransaction().apply {
+				addToBackStack(null)
+				replace(R.id.main_container_fragment, ComposeNavigationFragment())
+				commit()
+			}
+		}
 		adapter.setHasStableIds(true) // optimization
 
 		Choreographer.getInstance().postFrameCallback(createChoreographerFrameListener())
@@ -46,7 +53,7 @@ class BigListFragment: Fragment(R.layout.fragment_big_list) {
 
 		viewLifecycleOwner.lifecycleScope.launch {
 			viewModel.startLoadUsers()
-			viewModel.users.collect { users ->
+			viewModel.getItems().collect { users ->
 				adapter.submitList(users)
 			}
 		}

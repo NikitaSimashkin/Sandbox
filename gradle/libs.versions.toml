@@ -15,7 +15,8 @@ dagger = "2.46.1"
 coil = "2.6.0"
 composeCompiler = "1.5.3"
 compose = "1.6.4"
-materialCompose = "1.2.0"
+material3Compose = "1.2.0"
+materialCompose = "1.6.7"
 activityCompose = "1.8.2"
 navigationCompose = "2.7.7"
 
@@ -50,9 +51,10 @@ lifecycleViewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", ve
 daggerDagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 
 # compose
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-materialCompose = { module = "androidx.compose.material3:material3", version.ref = "materialCompose" }
+material3Compose = { module = "androidx.compose.material3:material3", version.ref = "material3Compose" }
+materialCompose = { module = "androidx.compose.material:material", version.ref = "materialCompose" }
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 composeRuntimeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }

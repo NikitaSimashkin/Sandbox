@@ -220,33 +220,33 @@
         tools:ignore="MissingConstraints"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/empty_button9"
+        android:id="@+id/big_list_epoxy"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:minWidth="100dp"
         android:gravity="center"
         android:textSize="14sp"
-        android:text="empty button 9"
+        android:text="Big list 2"
         tools:ignore="MissingConstraints"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/empty_button10"
+        android:id="@+id/optimize_compose"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:minWidth="100dp"
         android:gravity="center"
         android:textSize="14sp"
-        android:text="empty button 10"
+        android:text="optimize compose"
         tools:ignore="MissingConstraints"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/empty_button11"
+        android:id="@+id/pokemon"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:minWidth="100dp"
         android:gravity="center"
         android:textSize="14sp"
-        android:text="empty button 11"
+        android:text="pokemon"
         tools:ignore="MissingConstraints"/>
 
     <androidx.constraintlayout.helper.widget.Flow
@@ -264,9 +264,9 @@
             edit_text_view,
             compose,
             edgeToEdge,
-            empty_button9,
-            empty_button10,
-            empty_button11"
+            big_list_epoxy,
+            optimize_compose,
+            pokemon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -14,14 +14,12 @@ object RandomNameNonManifestContract {
 	const val RECEIVE_PERMISSION = "ru.kram.broadcast.random_name.permission.receive"
 
 	fun getReceiveIntent(name: RandomName): Intent {
-		return Intent(ACTION).apply {
-			putExtra(NAME_KEY, name.name)
-		}
+		return Intent(ACTION).putExtra(NAME_KEY, name.value)
 	}
 
 	fun getReceiveIntentFilter(): IntentFilter {
 		return IntentFilter(ACTION)
 	}
 
-	data class RandomName(val name: String)
+	data class RandomName(val value: String)
 }

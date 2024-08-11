@@ -1,5 +1,6 @@
 package ru.kram.sandbox.compose.edgetoedge
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -7,10 +8,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+@Stable
 class EdgeToEdgeViewModel: ViewModel() {
 
-    val state = MutableStateFlow(EdgeToEdgeState())
+    val state = MutableStateFlow(getInitialState())
     val command = MutableSharedFlow<Command>()
+
+    fun navigateToBottomSheetScreen() {
+        state.update {
+            it.copy(screen = EdgeToEdgeScreen.BottomSheetScreen2)
+        }
+    }
 
     fun enableEdgeToEdge() {
         viewModelScope.launch {
@@ -126,8 +134,57 @@ class EdgeToEdgeViewModel: ViewModel() {
         }
     }
 
+    fun hideNavBar() {
+        viewModelScope.launch {
+            command.emit(Command.HideNavBar)
+        }
+    }
+
+    fun showNavBar() {
+        viewModelScope.launch {
+            command.emit(Command.ShowNavBar)
+        }
+    }
+
+    fun enableNavBarPaddingIgnoreVisibility() {
+        state.update {
+            it.copy(isNavBarPaddingIgnoreVisibilityEnabled = true)
+        }
+    }
+
+    fun disableNavBarPaddingIgnoreVisibility() {
+        state.update {
+            it.copy(isNavBarPaddingIgnoreVisibilityEnabled = false)
+        }
+    }
+
+    fun clearState() {
+        state.update {
+            getInitialState()
+        }
+        viewModelScope.launch {
+            command.emit(Command.DisableEdgeToEdge)
+        }
+    }
+
+    private fun getInitialState() = EdgeToEdgeState(
+        isStatusBarPaddingEnabled = false,
+        isNavigationBarPaddingEnabled = false,
+        isStatusBarPaddingOnButtonEnabled = false,
+        isNavigationBarPaddingOnButtonEnabled = false,
+        isSafeDrawingPaddingEnabled = false,
+        isSystemBarsPaddingEnabled = false,
+        isDisplayCutoutPaddingEnabled = false,
+        isImePaddingEnabled = false,
+        isConsumedStatusBarPadding = false,
+        isNavBarPaddingIgnoreVisibilityEnabled = false,
+
+    )
+
     sealed interface Command {
         data object EnableEdgeToEdge: Command
         data object DisableEdgeToEdge: Command
+        data object HideNavBar: Command
+        data object ShowNavBar: Command
     }
 }

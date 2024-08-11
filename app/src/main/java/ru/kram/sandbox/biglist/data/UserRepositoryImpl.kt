@@ -43,7 +43,7 @@ class UserRepositoryImpl(
 				}
 				for (i in 0 until 1000) {
 					delay(10000)
-					userFlow.value = userFlow.value + generateUsers(1)
+					userFlow.value += generateUsers(1)
 				}
 			}
 		}

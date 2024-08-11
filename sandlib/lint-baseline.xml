@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.4.2" type="baseline" client="gradle" dependencies="false" name="AGP (7.4.2)" variant="fatal" version="7.4.2">
+
+    <issue
+        id="MobileAdsSdkOutdatedVersion"
+        message="mobileads version should be updated to 7.0.1"
+        errorLine1=" testImplementation(&quot;junit:junit:4.13.2&quot;)"
+        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle.kts"
+            line="64"
+            column="18"/>
+    </issue>
+
+</issues>

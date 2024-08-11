@@ -5,8 +5,15 @@ import android.app.NotificationManager
 import android.os.Build
 import android.util.Log
 import androidx.work.Configuration
+import com.vk.recompose.highlighter.RecomposeHighlighterConfig
+import com.vk.recompose.logger.RecomposeLoggerConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asExecutor
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import ru.kram.sandbox.notification.NotificationChannelStorage
-import java.util.concurrent.Executors
+import ru.kram.sandbox.paging3.di.pokemonModule
+import timber.log.Timber
 
 class SandboxApp: Application(), Configuration.Provider {
 
@@ -14,14 +21,25 @@ class SandboxApp: Application(), Configuration.Provider {
 
 	override val workManagerConfiguration: Configuration
 		get() = Configuration.Builder()
-			.setExecutor(Executors.newFixedThreadPool(5))
+			.setExecutor(Dispatchers.IO.asExecutor())
 			.setMinimumLoggingLevel(Log.DEBUG)
 			.build()
 
 	override fun onCreate() {
 		Log.d(TAG, "onCreate")
 		super.onCreate()
+
+		RecomposeLoggerConfig.isEnabled = false
+		RecomposeHighlighterConfig.isEnabled = false
+
 		createNotificationChannels()
+
+		startKoin {
+			androidContext(this@SandboxApp)
+			modules(pokemonModule)
+		}
+
+		Timber.plant(Timber.DebugTree())
 	}
 
 	private fun createNotificationChannels() {

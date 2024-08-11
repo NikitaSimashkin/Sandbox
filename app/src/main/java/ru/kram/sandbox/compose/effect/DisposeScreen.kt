@@ -1,7 +1,8 @@
-package ru.kram.sandbox.compose.dispose
+package ru.kram.sandbox.compose.effect
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,10 +28,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import ru.kram.sandbox.utils.noButtonColor
@@ -137,10 +136,22 @@ fun BigRedSquare() {
         number
     }
 
+    val textState = remember {
+        mutableStateOf("")
+    }
+
+    LaunchedEffect(textState.value) {
+        delay(2000)
+        Log.d("Dispose: Launched", "LaunchedEffect with ${textState.value.count { it == '#' }}")
+    }
+
     Box(
         modifier = Modifier
             .size(300.dp)
-            .background(Color.Red),
+            .background(Color.Red)
+            .clickable {
+                textState.value += "#"
+            },
         contentAlignment = Alignment.Center
     ) {
         Text(number.toString(), fontSize = 20.sp)
