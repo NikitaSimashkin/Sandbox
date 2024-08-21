@@ -18,10 +18,11 @@ import ru.kram.sandbox.paging3.data.PokemonRemoteMediator
 import ru.kram.sandbox.paging3.data.PokemonRepository
 import ru.kram.sandbox.paging3.presentation.model.PokemonScreenState
 import ru.kram.sandbox.paging3.presentation.model.PokemonUiModel
+import kotlin.concurrent.thread
 
 @OptIn(ExperimentalPagingApi::class)
 class PokemonViewModel(
-    pokemonRemoteMediator: PokemonRemoteMediator,
+    pokemonRemoteMediatorFactory: PokemonRemoteMediator.Factory,
     private val pokemonRepository: PokemonRepository,
     private val pagingSourceFactory: PokemonPagingSource.Factory
 ) : ViewModel() {
@@ -34,7 +35,7 @@ class PokemonViewModel(
         config = PagingConfig(
             pageSize = PAGE_SIZE,
             enablePlaceholders = false,
-            initialLoadSize = PAGE_SIZE * 2,
+            initialLoadSize = PAGE_SIZE,
             prefetchDistance = PAGE_SIZE / 4,
             maxSize = PAGE_SIZE * 3
         ),
@@ -43,7 +44,7 @@ class PokemonViewModel(
                 pokemonPagingSource = this
             }
         },
-        remoteMediator = pokemonRemoteMediator
+        remoteMediator = pokemonRemoteMediatorFactory(PAGE_SIZE)
     ).flow
         .map {
             it.map { pokemon ->
@@ -73,7 +74,19 @@ class PokemonViewModel(
         }
     }
 
+    fun loadFakeData() {
+        viewModelScope.launch {
+            pokemonRepository.loadFake()
+        }
+    }
+
+    fun deletePokemon(pokemon: PokemonUiModel) {
+        viewModelScope.launch {
+            pokemonRepository.delete(pokemon.id)
+        }
+    }
+
     companion object {
-        private const val PAGE_SIZE = 20
+        private const val PAGE_SIZE = 50
     }
 }

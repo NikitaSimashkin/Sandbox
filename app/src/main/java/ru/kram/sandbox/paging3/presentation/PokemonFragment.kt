@@ -38,7 +38,7 @@ class PokemonFragment: ComposeFragment() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val viewModel: PokemonViewModel = koinViewModel()
-            val pokemonState = viewModel.pokemonState.collectAsStateWithLifecycle().value
+            val pokemonState = viewModel.pokemonState.collectAsStateWithLifecycle()
             val pokemonList = viewModel.pokemonsFlow.collectAsLazyPagingItems()
 
             Title()
@@ -47,16 +47,24 @@ class PokemonFragment: ComposeFragment() {
 
             HorizontalDivider()
 
-            InfoBlock(pokemonState.pokemonsDbCount, pokemonList)
+            InfoBlock(pokemonState.value.pokemonsDbCount, pokemonList)
 
             HorizontalDivider()
 
-            PokemonList(pokemonList)
+            PokemonList(
+                pokemonList = pokemonList,
+                onDelete = {
+                    viewModel.deletePokemon(it)
+                }
+            )
         }
     }
 
     @Composable
-    private fun PokemonList(pokemonList: LazyPagingItems<PokemonUiModel>) {
+    private fun PokemonList(
+        onDelete: (PokemonUiModel) -> Unit,
+        pokemonList: LazyPagingItems<PokemonUiModel>
+    ) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -65,7 +73,14 @@ class PokemonFragment: ComposeFragment() {
                 key = pokemonList.itemKey { it.id }
             ) {
                 val pokemon = pokemonList[it]
-                PokemonItem(pokemon = pokemon)
+                PokemonItem(
+                    pokemon = pokemon,
+                    onDelete = {
+                        if (pokemon != null) {
+                            onDelete(pokemon)
+                        }
+                    }
+                )
                 if (pokemonList.itemCount - 1 == it) {
                     HorizontalDivider()
                 }
@@ -111,6 +126,7 @@ class PokemonFragment: ComposeFragment() {
             ActionButton(text = "Clear Database", onClick = viewModel::clearDatabase)
             ActionButton(text = "Refresh list", onClick = pokemonList::refresh)
             ActionButton(text = "Retry list", onClick = pokemonList::retry)
+            ActionButton(text = "Load fake data", onClick = viewModel::loadFakeData)
         }
     }
 

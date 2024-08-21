@@ -3,14 +3,11 @@ package ru.kram.sandbox.paging3.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import kotlinx.coroutines.CancellationException
-import org.koin.core.context.GlobalContext
-import ru.kram.sandbox.paging3.data.db.PokemonDataBase
 import ru.kram.sandbox.paging3.data.db.PokemonEntity
 import ru.kram.sandbox.paging3.data.db.PokemonPagingKey
 import timber.log.Timber
 
 class PokemonPagingSource(
-    private val database: PokemonDataBase,
     private val pokemonRepository: PokemonRepository,
     private val basePageSize: Int
 ) : PagingSource<PokemonPagingKey, PokemonEntity>() {
@@ -25,7 +22,7 @@ class PokemonPagingSource(
                 offset = page.page * basePageSize,
                 limit = params.loadSize
             )
-            Timber.d("load: page=${page.page} first=${response.firstOrNull()?.name} responseSize=${response.size}")
+            Timber.d("load: page=${page.page} responseSize=${response.size}")
             LoadResult.Page(
                 data = response,
                 prevKey = getPrevKey(response.firstOrNull()),
@@ -43,11 +40,11 @@ class PokemonPagingSource(
     override fun getRefreshKey(
         state: PagingState<PokemonPagingKey, PokemonEntity>
     ): PokemonPagingKey? {
-        Timber.d("getRefreshKey: state=${state::class.simpleName}")
         val anchorPosition = state.anchorPosition ?: return null
         val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
-        return anchorPage.prevKey?.page?.let { PokemonPagingKey(it + 1) }
-            ?: anchorPage.nextKey?.page?.let { PokemonPagingKey(it - 1) }
+        val page = (anchorPage.data.firstOrNull()?.id ?: 0) / basePageSize
+        Timber.d("getRefreshKey: anchorPosition=$anchorPosition, pokemonPagingKey=$page")
+        return PokemonPagingKey(page)
     }
 
     private fun getNextKey(lastLoadedItem: PokemonEntity?): PokemonPagingKey? {
@@ -63,12 +60,11 @@ class PokemonPagingSource(
     }
 
     class Factory(
-        private val database: PokemonDataBase = GlobalContext.get().get(),
-        private val pokemonRepository: PokemonRepository = GlobalContext.get().get(),
+        private val pokemonRepository: PokemonRepository,
     ) : (Int) -> PokemonPagingSource {
 
         override fun invoke(pageSize: Int): PokemonPagingSource {
-            return PokemonPagingSource(database, pokemonRepository, pageSize)
+            return PokemonPagingSource(pokemonRepository, pageSize)
         }
     }
 }

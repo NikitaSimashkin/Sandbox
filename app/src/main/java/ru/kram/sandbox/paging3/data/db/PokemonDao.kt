@@ -1,6 +1,8 @@
 package ru.kram.sandbox.paging3.data.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -12,6 +14,9 @@ interface PokemonDao {
 
     @Query("SELECT * FROM PokemonEntity ORDER BY id ASC LIMIT :limit OFFSET :offset")
     fun get(offset: Int, limit: Int): List<PokemonEntity>
+
+    @Query("SELECT * FROM PokemonEntity")
+    fun getPagingSource(): PagingSource<Int, PokemonEntity>
 
     @Query("SELECT COUNT(*) FROM PokemonEntity")
     fun observeCount(): Flow<Int>
@@ -27,4 +32,7 @@ interface PokemonDao {
 
     @Query("SELECT MAX(id) FROM PokemonEntity")
     fun getLastLoadedPokemonId(): Int?
+
+    @Query("DELETE FROM PokemonEntity WHERE id = :id")
+    fun delete(id: Int)
 }

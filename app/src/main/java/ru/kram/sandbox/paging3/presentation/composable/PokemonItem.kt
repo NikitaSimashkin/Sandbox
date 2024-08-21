@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +27,7 @@ import java.util.Locale
 @Composable
 fun PokemonItem(
     pokemon: PokemonUiModel?,
+    onDelete: (PokemonUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val pokemonOrDefault = pokemon ?: PokemonUiModel.Default
@@ -55,6 +60,22 @@ fun PokemonItem(
                 style = MaterialTheme.typography.bodyMedium
             )
         }
+
+        IconButton(
+            onClick = {
+                if (pokemon != null && pokemon.id != PokemonUiModel.INVALID_ID) {
+                    onDelete(pokemon)
+                }
+            },
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .size(50.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Delete"
+            )
+        }
     }
 }
 
@@ -66,6 +87,7 @@ private fun PokemonPreview() {
             id = 1,
             name = "Bulbasaur",
             imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-        )
+        ),
+        onDelete = {}
     )
 }

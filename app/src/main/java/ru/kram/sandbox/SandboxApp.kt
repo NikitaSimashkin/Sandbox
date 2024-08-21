@@ -2,8 +2,10 @@ package ru.kram.sandbox
 
 import android.app.Application
 import android.app.NotificationManager
+import android.content.Intent
 import android.os.Build
 import android.util.Log
+import android.view.View
 import androidx.work.Configuration
 import com.vk.recompose.highlighter.RecomposeHighlighterConfig
 import com.vk.recompose.logger.RecomposeLoggerConfig
@@ -40,6 +42,7 @@ class SandboxApp: Application(), Configuration.Provider {
 		}
 
 		Timber.plant(Timber.DebugTree())
+		View(this).measuredWidth
 	}
 
 	private fun createNotificationChannels() {

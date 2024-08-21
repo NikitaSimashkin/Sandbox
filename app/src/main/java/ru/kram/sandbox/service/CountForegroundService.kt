@@ -3,7 +3,9 @@ package ru.kram.sandbox.service
 import android.app.Notification
 import android.app.Service
 import android.content.Intent
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.kram.sandbox.MainActivity
 import ru.kram.sandbox.R
+import ru.kram.sandbox.compose.edgetoedge.EdgeToEdgeActivity
+import timber.log.Timber
 
 private var counter = 0
 
@@ -39,6 +44,7 @@ class CountForegroundService: Service() {
 			ACTION_STOP -> stopSelf()
 			ACTION_STOP_FOREGROUND_DETACH -> stopForeground(STOP_FOREGROUND_DETACH)
 			ACTION_STOP_FOREGROUND_REMOVE -> stopForeground(STOP_FOREGROUND_REMOVE)
+			ACTION_START_ACTIVITY -> startActivity()
 		}
 
 		return START_REDELIVER_INTENT
@@ -64,6 +70,16 @@ class CountForegroundService: Service() {
 		return builder.build()
 	}
 
+	private fun startActivity() {
+		Timber.tag(TAG).d("startActivity")
+		Handler(Looper.getMainLooper()).postDelayed( {
+			Timber.tag(TAG).d("startActivity postDelayed")
+			val intent = Intent(this, EdgeToEdgeActivity::class.java)
+			intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+			startActivity(intent)
+		}, 3000)
+	}
+
 	companion object {
 		private val TAG = "CountForegroundService ${counter++}"
 
@@ -75,5 +91,6 @@ class CountForegroundService: Service() {
 		const val ACTION_STOP = "ru.kram.sandbox.service.CountForegroundService.ACTION_STOP"
 		const val ACTION_STOP_FOREGROUND_DETACH = "ru.kram.sandbox.service.CountForegroundService.ACTION_STOP_FOREGROUND_DETACH"
 		const val ACTION_STOP_FOREGROUND_REMOVE = "ru.kram.sandbox.service.CountForegroundService.ACTION_STOP_FOREGROUND_REMOVE"
+		const val ACTION_START_ACTIVITY = "ru.kram.sandbox.service.CountForegroundService.START_ACTIVITY"
 	}
 }

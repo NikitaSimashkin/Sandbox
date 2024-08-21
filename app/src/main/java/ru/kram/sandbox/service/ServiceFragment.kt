@@ -225,6 +225,16 @@ class ServiceFragment : Fragment(R.layout.fragment_service) {
 			deathStarService?.fillDeathStarIn(star)
 			Log.d(TAG, "fillIn, result $star")
 		}
+
+		binding.startActivityFromBackground.setOnClickListener {
+			requireContext().startService(
+				Intent(
+					requireContext(),
+					CountForegroundService::class.java
+				).apply {
+					action = CountForegroundService.ACTION_START_ACTIVITY
+				})
+		}
 	}
 
 	private fun setMessengerText(text: String) {

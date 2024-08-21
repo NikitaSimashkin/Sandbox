@@ -165,6 +165,7 @@ dependencies {
     val pagingVersion = "3.3.2"
     implementation("androidx.paging:paging-runtime:$pagingVersion")
     implementation("androidx.paging:paging-compose:$pagingVersion")
+    implementation("androidx.room:room-paging:$roomVersion")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
 }

@@ -28,7 +28,9 @@ val pokemonModule = module {
             context = androidApplication(),
             klass = PokemonDataBase::class.java,
             name = "pokemon_database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     single {
@@ -57,15 +59,15 @@ val pokemonModule = module {
         )
     }
 
-    factory { PokemonRemoteMediator(get()) }
+    factory { PokemonRemoteMediator.Factory(get()) }
 
     factory { PokemonPagingSource.Factory(get()) }
 
     viewModel<PokemonViewModel> {
         PokemonViewModel(
-            pokemonRemoteMediator = get(),
             pokemonRepository = get(),
-            pagingSourceFactory = get()
+            pagingSourceFactory = get(),
+            pokemonRemoteMediatorFactory = get()
         )
     }
 }
