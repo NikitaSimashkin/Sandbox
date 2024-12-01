@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.kram.ipctestapp2">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="ipctestapp2"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true" >
+        <service
+            android:name="ru.kram.ipctestapp2.randomservice.RandomService"
+            android:exported="true"
+            android:process=":randomService" />
+        <service
+            android:name="ru.kram.ipctestapp2.randomservice.RandomMessengerService"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="ru.kram.ipctestapp2.permission.RANDOM_MESSENGER_SERVICE_START"
+            android:process=":randomMessengerService" />
+    </application>
+</manifest>

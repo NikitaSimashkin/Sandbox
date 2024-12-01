@@ -38,13 +38,7 @@ buildCache {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-		google {
-//			content {
-//				includeGroupByRegex("com\\.android.*")
-//				includeGroupByRegex("com\\.google.*")
-//				includeGroupByRegex("androidx.*")
-//			}
-		}
+		google()
         mavenCentral()
     }
 }
@@ -52,14 +46,12 @@ dependencyResolutionManagement {
 rootProject.name = "Sandbox"
 
 apply(from = "common/settings-common.gradle.kts")
+apply(from = "features/settings-features.gradle.kts")
+apply(from = "ipctesting/settings-ipctesting.gradle.kts")
 
-include(":app")
-include(":boxsand")
-include(":sandlib")
-include(":deathstar")
+includeBuild("gradle-plugins")
+
+include(":head")
 include(":common")
-include(":provider")
-include(":common:provider-contract")
-include(":common:koin")
-include(":common:broadcast-random-name")
-include(":common:architecture")
+include(":features")
+include(":pokemonpaging")
