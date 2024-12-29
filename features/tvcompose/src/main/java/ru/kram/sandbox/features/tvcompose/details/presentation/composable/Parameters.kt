@@ -158,9 +158,7 @@ private fun ParametersPreview() {
                 qualities = listOf(Quality.HD, Quality.FourK),
             )
 
-            Parameters(
-                parametersItem = item,
-            )
+            Parameters(parametersItem = item)
         }
     }
 }
