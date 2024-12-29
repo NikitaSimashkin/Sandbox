@@ -3,8 +3,10 @@ package ru.kram.sandbox.head.navigation
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import ru.kram.sandbox.common.compose.ComposeFragment
 import ru.kram.sandbox.features.ad.AdFragment
 import ru.kram.sandbox.features.biglist.presentation.BigListEpoxyFragment
 import ru.kram.sandbox.features.biglist.presentation.BigListFragment
@@ -21,7 +23,7 @@ import ru.kram.sandbox.head.databinding.FragmentNavigationBinding
 import ru.kram.sandbox.features.edittext.EditTextFragment
 import ru.kram.sandbox.features.jobscheduler.JobServiceFragment
 import ru.kram.sandbox.features.textviewtest.TextViewTestFragment
-import ru.kram.sandbox.features.workmanager.WorkManagerFragment
+import ru.kram.sandbox.features.tvcompose.details.presentation.CardDetailsScreen
 
 class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 
@@ -87,6 +89,9 @@ class NavigationFragment: Fragment(R.layout.fragment_navigation) {
 		}
 		optimizeCompose.setOnClickListener {
 			openFragment(OptimizeNavigationFragment())
+		}
+		tvcompose.setOnClickListener {
+			openFragment(CardDetailsScreenFragment())
 		}
 	}
 

@@ -1,3 +1,4 @@
+include("common:architecture")
 include("common:contract-random-messenger")
 include("common:contract-broadcast-random-name")
 include("common:contract-deathstar")

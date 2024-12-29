@@ -59,7 +59,7 @@ dependencies {
     implementation(project(":features:sparsearray"))
     implementation(project(":features:textviewtest"))
     implementation(project(":features:workmanager"))
-
+    implementation(project(":features:tvcompose"))
 
     implementation(libs.androidx.core)
     implementation(libs.androidx.appcompat)

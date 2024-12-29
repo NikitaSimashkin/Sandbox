@@ -13,6 +13,7 @@ androidx_compose_bom = "2024.11.00"
 
 # Network
 ktor = "2.3.6"
+exoplayer = "1.5.1"
 
 #other
 koin = "3.5.6"
@@ -58,6 +59,8 @@ androidx_lifecycle_viewmodel_compose = { module = "androidx.lifecycle:lifecycle-
 androidx_lifecycle_runtime_compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx_activity_compose = { module = "androidx.activity:activity-compose", version = "1.9.3" }
 androidx_fragment_compose = { module = "androidx.fragment:fragment-compose", version = "1.8.3" }
+androidx_compose_tv = { module = "androidx.tv:tv-material", version = "1.0.0" }
+androidx_compose_tv_foundation = { module = "androidx.tv:tv-foundation", version = "1.0.0-alpha11" }
 
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
@@ -79,10 +82,15 @@ ktor_serialization_kotlinx_json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor_client_logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 
 # paging
-
 paging_runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 paging_compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
 paging_room = { module = "androidx.room:room-paging", version.ref = "room" }
+
+# exo player
+exoplayer_core = { module = "androidx.media3:media3-exoplayer", version.ref = "exoplayer" }
+exoplayer_dash = { module = "androidx.media3:media3-exoplayer-dash", version.ref = "exoplayer" }
+exoplayer_ui = { module = "androidx.media3:media3-ui", version.ref = "exoplayer" }
+exoplayer_hls = { module = "androidx.media3:media3-exoplayer-hls", version.ref = "exoplayer" }
 
 # test
 junit_jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.9.1" }
@@ -92,7 +100,6 @@ espresso = { module = "androidx.test.espresso:espresso-core", version = "3.6.1" 
 # other
 rxjava3 = { module = "io.reactivex.rxjava3:rxjava", version = "3.1.6" }
 timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
-media3 = { module = "androidx.media3:media3-exoplayer", version = "1.4.1" }
 mobileads = { module = "com.yandex.android:mobileads", version = "5.9.0" }
 viewbinding_delegate = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version = "1.5.9" }
 worknamager = { module = "androidx.work:work-runtime-ktx", version = "2.10.0" }
@@ -122,6 +129,32 @@ compose = [
     "androidx_fragment_compose",
 ]
 
+compose_base = [
+    "androidx_compose_ui",
+    "androidx_compose_foundation",
+    "androidx_compose_material_ic_core",
+    "androidx_compose_material_ic_ext",
+    "androidx_compose_animation",
+    "androidx_compose_runtime",
+    "androidx_compose_ui_tools_preview",
+    "androidx_compose_ui_utils",
+    "androidx_lifecycle_viewmodel_compose",
+    "androidx_lifecycle_runtime_compose",
+    "androidx_activity_compose",
+    "androidx_compose_ui_tools",
+    "androidx_fragment_compose",
+]
+
+compose_mobile = [
+    "androidx_compose_material",
+    "androidx_compose_material3",
+]
+
+compose_tv = [
+    "androidx_compose_tv",
+    "androidx_compose_tv_foundation",
+]
+
 room = [
     "room_runtime",
     "room_ktx",
@@ -133,6 +166,13 @@ ktor = [
     "ktor_content_negotiation",
     "ktor_serialization_kotlinx_json",
     "ktor_client_logging",
+]
+
+exoplayer = [
+    "exoplayer_core",
+    "exoplayer_dash",
+    "exoplayer_ui",
+    "exoplayer_hls",
 ]
 
 [plugins]

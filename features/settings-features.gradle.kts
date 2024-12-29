@@ -37,3 +37,5 @@ include("features:sparsearray")
 include("features:textviewtest")
 
 include("features:workmanager")
+
+include("features:tvcompose")

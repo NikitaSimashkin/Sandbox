@@ -18,6 +18,6 @@ dependencies {
     implementation(libs.google.material)
 
     implementation(libs.viewbinding.delegate)
-    implementation(libs.media3)
+    implementation(libs.bundles.exoplayer)
 }
 

@@ -11,5 +11,5 @@ android {
 setupCompose()
 
 dependencies {
-
+    api(project(":common:compose"))
 }

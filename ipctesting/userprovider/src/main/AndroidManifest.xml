@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".UserContentProviderApplication"
-        android:theme="@style/Theme.Sandbox">
+        android:theme="@style/ru.kram.sandbox.features.tvcompose.details.presentation.theme.Theme.Sandbox">
 
         <activity
             android:name=".presentation.ProviderActivity"

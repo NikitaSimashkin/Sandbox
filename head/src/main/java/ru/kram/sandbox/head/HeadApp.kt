@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.kram.sandbox.features.tvcompose.details.di.cardDetailsModule
 import ru.kram.sandbox.head.di.appModule
 import ru.kram.sandbox.head.notification.NotificationChannelStorage
 import timber.log.Timber
@@ -32,7 +33,10 @@ class HeadApp: Application(), Configuration.Provider {
 
 		startKoin {
 			androidContext(this@HeadApp)
-			modules(appModule)
+			modules(
+				appModule,
+				cardDetailsModule
+			)
 		}
 
 		Timber.plant(Timber.DebugTree())
