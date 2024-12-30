@@ -86,7 +86,7 @@ class PokemonViewModel(
                         pages = (1..lastPage).map { page ->
                             Page(
                                 value = page,
-                                isEnabled = true
+                                isEnabled = true,
                             )
                         }
                     )
