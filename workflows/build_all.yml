@@ -1,0 +1,35 @@
+name: Build all
+
+on:
+  pull_request
+
+jobs:
+  build:
+    name: Build all
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        module:
+          - { name: "head", command: ":head:assembleRelease" }
+          - { name: "deathstar", command: ":ipctesting:deathstar:assembleRelease" }
+          - { name: "ipctestapp1", command: ":ipctesting:ipctestapp1:assembleRelease" }
+          - { name: "ipctestapp2", command: ":ipctesting:ipctestapp2:assembleRelease" }
+          - { name: "userprovider", command: ":ipctesting:userprovider:assembleRelease" }
+          - { name: "pokemonpaging", command: ":pokemonpaging:assembleRelease" }
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Build release ${{ matrix.module.name }} apk
+        run: ./gradlew ${{ matrix.module.command }}:
