@@ -48,12 +48,12 @@ open class BaseLibraryPlugin : Plugin<Project> {
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = Config.java
+                targetCompatibility = Config.java
             }
 
             (this as org.gradle.api.plugins.ExtensionAware).extensions.configure<KotlinJvmOptions> {
-                jvmTarget = "1.8"
+                jvmTarget = Config.javaString
             }
 
             if (target.name != "core") {
