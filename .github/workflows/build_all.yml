@@ -2,7 +2,7 @@ name: Build all
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
 
 jobs:
   build:
@@ -33,4 +33,4 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Build release ${{ matrix.module.name }} apk
-        run: ./gradlew ${{ matrix.module.command }}
+        run: ./gradlew ${{ matrix.module.command }} --no-build-cache --no-configuration-cache --rerun-tasks

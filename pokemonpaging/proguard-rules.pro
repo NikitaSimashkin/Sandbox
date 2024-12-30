@@ -20,5 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontwarn java.lang.invoke.StringConcatFactory
--dontwarn com.google.auto.service.AutoService
+-dontwarn org.slf4j.impl.StaticLoggerBinder

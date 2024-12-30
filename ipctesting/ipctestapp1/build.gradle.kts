@@ -17,6 +17,7 @@ android {
 }
 
 dependencies {
+	implementation(project(":common:core"))
 	implementation(project(":common:utils"))
 	implementation(project(":common:contract-random-messenger"))
 	implementation(project(":common:contract-broadcast-random-name"))

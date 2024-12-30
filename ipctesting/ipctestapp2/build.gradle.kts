@@ -13,6 +13,7 @@ android {
 }
 
 dependencies {
+	implementation(project(":common:core"))
 	implementation(project(":common:contract-random-messenger"))
 	implementation(project(":common:utils"))
 

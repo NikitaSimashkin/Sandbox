@@ -11,6 +11,7 @@ import ru.kram.sandbox.common.broadcast_random_name.GoAsyncContract
 import ru.kram.sandbox.common.broadcast_random_name.PeekServiceContract
 import ru.kram.sandbox.common.broadcast_random_name.RandomNameContract
 import ru.kram.sandbox.common.broadcast_random_name.RandomNameNonManifestContract
+import timber.log.Timber
 
 class RandomNameFragment : Fragment(R.layout.fragment_randomname) {
 
@@ -44,7 +45,6 @@ class RandomNameFragment : Fragment(R.layout.fragment_randomname) {
 	}
 
 	companion object {
-		private const val TAG = "RandomNameFragment"
 
 		private val names = listOf(
 			"Alex",

@@ -21,4 +21,3 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn java.lang.invoke.StringConcatFactory
--dontwarn com.google.auto.service.AutoService
