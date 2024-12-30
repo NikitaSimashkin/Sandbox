@@ -8,6 +8,7 @@ import ru.kram.sandbox.common.utils.ProcessNameProvider
 import ru.kram.sandbox.common.contract_deathstar.aidl.DeathStar
 import ru.kram.sandbox.common.contract_deathstar.aidl.IDeathStarResponseListener
 import ru.kram.sandbox.common.contract_deathstar.aidl.IDeathStarService
+import timber.log.Timber
 
 class DeathStarService: Service() {
 

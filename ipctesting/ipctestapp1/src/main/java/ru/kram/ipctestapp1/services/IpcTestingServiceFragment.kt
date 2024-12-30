@@ -17,6 +17,7 @@ import ru.kram.ipctestapp1.R
 import ru.kram.ipctestapp1.databinding.FragmentServiceBinding
 import ru.kram.sandbox.service_contract.RandomMessengerServiceContract
 import ru.kram.sandbox.common.utils.ProcessNameProvider
+import timber.log.Timber
 
 class ipctestapp1ServiceFragment : Fragment(R.layout.fragment_service) {
 
@@ -103,9 +104,5 @@ class ipctestapp1ServiceFragment : Fragment(R.layout.fragment_service) {
 			receiveMessenger = null
 			requestMessenger = null
 		}
-	}
-
-	companion object {
-		private const val TAG = "ipctestapp1ServiceFragment"
 	}
 }

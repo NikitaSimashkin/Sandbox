@@ -6,6 +6,7 @@ import android.os.IBinder
 import android.os.Messenger
 import android.util.Log
 import ru.kram.sandbox.common.utils.ProcessNameProvider
+import timber.log.Timber
 import java.lang.RuntimeException
 
 class RandomMessengerService: Service() {
@@ -14,41 +15,41 @@ class RandomMessengerService: Service() {
 	private var number: Int? = null
 
 	init {
-		Timber.d("init, ${ProcessNameProvider.getThreadAndProcessInfo()}")
+		Timber.tag(TAG).d("init, ${ProcessNameProvider.getThreadAndProcessInfo()}")
 	}
 
 	override fun onBind(intent: Intent?): IBinder {
-		Timber.d("onBind, ${ProcessNameProvider.getThreadAndProcessInfo()}")
+		Timber.tag(TAG).d("onBind, ${ProcessNameProvider.getThreadAndProcessInfo()}")
 		return Messenger(RandomNumberHandler(RandomNumberServiceImpl())).binder
 	}
 
 	override fun onCreate() {
-		Timber.d("onCreate")
+		Timber.tag(TAG).d("onCreate")
 		super.onCreate()
 	}
 
 	override fun onStart(intent: Intent?, startId: Int) {
-		Timber.d("onStart")
+		Timber.tag(TAG).d("onStart")
 		super.onStart(intent, startId)
 	}
 
 	override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-		Timber.d("onStartCommand")
+		Timber.tag(TAG).d("onStartCommand")
 		return super.onStartCommand(intent, flags, startId)
 	}
 
 	override fun onDestroy() {
-		Timber.d("onDestroy")
+		Timber.tag(TAG).d("onDestroy")
 		super.onDestroy()
 	}
 
 	override fun onUnbind(intent: Intent?): Boolean {
-		Timber.d("onUnbind")
+		Timber.tag(TAG).d("onUnbind")
 		return false
 	}
 
 	override fun onRebind(intent: Intent?) {
-		Timber.d("onRebind")
+		Timber.tag(TAG).d("onRebind")
 		super.onRebind(intent)
 	}
 

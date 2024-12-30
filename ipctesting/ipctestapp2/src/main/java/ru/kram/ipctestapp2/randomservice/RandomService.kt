@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.kram.sandbox.common.utils.ProcessNameProvider
+import timber.log.Timber
 
 class RandomService: Service() {
 

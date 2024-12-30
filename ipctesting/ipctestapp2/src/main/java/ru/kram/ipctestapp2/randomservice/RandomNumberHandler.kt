@@ -6,6 +6,7 @@ import android.os.Message
 import android.util.Log
 import ru.kram.sandbox.service_contract.RandomMessengerServiceContract
 import ru.kram.sandbox.common.utils.ProcessNameProvider
+import timber.log.Timber
 import java.lang.ref.WeakReference
 
 class RandomNumberHandler(service: IRandomNumberService): Handler(Looper.getMainLooper()) {
